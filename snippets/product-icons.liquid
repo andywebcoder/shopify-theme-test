@@ -1,0 +1,9 @@
+<div class="product-icons">
+{% if product.tags contains 'organic' %}
+  <span class="product-icon icon-organic">🌿</span>
+{% endif %}
+
+{% if product.tags contains 'limited' %}
+  <span class="product-icon icon-limited">⭐️</span>
+{% endif %}
+</div>

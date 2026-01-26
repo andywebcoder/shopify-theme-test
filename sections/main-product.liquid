@@ -17,6 +17,7 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
     {{ 'component-swatch-input.css' | asset_url | stylesheet_tag }}
@@ -42,6 +43,8 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  {% comment %} 追加JS {% endcomment %}
+    <script src="{{ 'customize.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -130,6 +133,11 @@
                   {{- block.settings.text -}}
                 </p>
               {%- when 'title' -%}
+                {% comment %} 商品タイプ {% endcomment %}
+              {% if product.type != blank %}
+                <span class="product__type">{{ product.type }}</span>
+              {% endif %}
+
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
@@ -224,10 +232,19 @@
                     {%- endif -%}
                   {%- endif -%}
                 </p>
+                {% comment %} 商品説明 {% endcomment %}
               {%- when 'description' -%}
+                <p class="product__description-title">
+                  商品説明
+                </p>
                 {%- if product.description != blank -%}
-                  <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                    {{ product.description }}
+                  <div class="product__description-wrapper">
+                    <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
+                      {{ product.description }}
+                    </div>
+                    <button class="product__description-more" type="button" aria-expanded="false">
+                      もっと見る
+                    </button>
                   </div>
                 {%- endif -%}
               {%- when 'sku' -%}
@@ -507,7 +524,6 @@
                   assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
                   render 'share-button', block: block, share_link: share_url
                 %}
-
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
@@ -709,6 +725,7 @@
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}
           {%- endfor -%}
+          
           <a href="{{ product.url }}" class="link product__view-details animate-arrow">
             {{ 'products.product.view_full_details' | t }}
             {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -745,6 +762,24 @@
       </modal-dialog>
     {%- endfor -%}
 
+    {% comment %} Q&A {% endcomment %}
+    <div class="product-qa">
+      <h2 class="product-qa__title">Q&A</h2>
+      <div class="product-qa__list">
+        <div class="product-qa__item">
+          <h3 class="product-qa__question">Q: 質問1</h3>
+          <p class="product-qa__answer">A: 回答1</p>
+        </div>
+        <div class="product-qa__item">
+          <h3 class="product-qa__question">Q: 質問2</h3>
+          <p class="product-qa__answer">A: 回答2</p>
+        </div>
+        <div class="product-qa__item">
+          <h3 class="product-qa__question">Q: 質問3</h3>
+          <p class="product-qa__answer">A: 回答3</p>
+        </div>
+      </div>
+    </div>
     {%- if product.media.size > 0 -%}
       <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
       <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>

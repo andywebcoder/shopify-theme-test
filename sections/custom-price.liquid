@@ -1,0 +1,42 @@
+{% comment %} 
+    Template: Custom Price section
+{% endcomment %}
+
+<div class="customPrice">
+    <div class="page-width">
+        <h2 class="customPrice__title">
+            {{ section.settings.title }}
+        </h2>
+        <p class="customPrice__text">
+            税込：{{ section.settings.text | money_with_currency }}
+        </p>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Custom Price",
+        "class": "customPriceWrapper"  ,
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "タイトル",
+                "info": "価格のタイトルを入力してください",
+                "placeholder": "タイトル"
+            },
+            {
+                "type": "text",
+                "id": "text",
+                "label": "テキスト",
+                "info": "価格のテキストを入力してください",
+                "placeholder": "テキスト"
+            }
+        ],
+        "presets": [
+            {
+                "name": "Custom Price"
+            }
+        ]
+    }
+{% endschema %}

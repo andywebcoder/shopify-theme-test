@@ -1,0 +1,72 @@
+{% comment %} 
+    Template: Custom Banner section
+{% endcomment %}
+
+<div class="customBanner">
+    <div class="page-width">
+        {% if section.settings.title != blank %}
+            <h2 class="customBanner__title">
+                {{ section.settings.title }}
+            </h2>
+        {% endif %}
+
+        <div class="customBanner__list">
+            {% for block in section.blocks %}
+                <div class="customBanner__item">
+                    <a href="{{ block.settings.link }}" class="customBanner__link">
+                        <img src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.text }}" class="customBanner__image">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Custom Banner",
+        "class": "customBannerWrapper"  ,
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "タイトル",
+                "info":"バナーのタイトルを入力してください",
+                "placeholder": "タイトル"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "image",
+                "name": "Image",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "画像"
+                    },
+                    {
+                        "type": "text",
+                        "id": "text",
+                        "label": "テキスト",
+                        "info": "バナーに表示するテキストを入力してください",
+                        "placeholder": "テキスト"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "リンク",
+                        "info": "バナーをクリックしたときに遷移するURLを入力してください"
+                    }
+                ]
+            }
+        ],
+
+        "presets": [
+            {
+                "name": "Custom Banner"
+            }
+        ]
+    }
+{% endschema %}

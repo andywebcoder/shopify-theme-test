@@ -1,0 +1,7 @@
+{% assign now = 'now' | date: '%s' %}
+{% assign created = product.created_at | date: '%s' %}
+{% assign diff = now | minus: created %}
+
+{% if diff >= 0 and diff < 1209600 %}
+  <span class="badge badge--new">NEW</span>
+{% endif %}

@@ -1,0 +1,69 @@
+{% comment %} 
+    Template: Custom Faq section
+{% endcomment %}
+<div class="customFaq">
+    <div class="page-width">
+        <h2 class="customFaq__title">
+            {{ section.settings.title }}
+        </h2>
+        <div class="customFaq__list">
+        {% for block in section.blocks %}
+            <div class="customFaq__item">
+                <details class="customFaq__details">
+                    <summary class="customFaq__summary">
+                        {{ block.settings.question }}
+                    </summary>
+                    <div class="customFaq__content">
+                        {{ block.settings.answer }}
+                    </div>
+                </details>
+            </div>
+        {% endfor %}
+        </div>
+    </div>    
+</div>
+
+
+
+{% schema %}
+    {
+        "name": "Custom Faq",
+        "class": "customFaqWrapper"  ,
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "タイトル",
+                "info": "FAQのタイトルを入力してください",
+                "placeholder": "タイトル"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "faq",
+                "name": "FAQ",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "question",
+                        "label": "質問",
+                        "info": "FAQの質問を入力してください",
+                        "placeholder": "質問"
+                    },
+                    {
+                        "type": "text",
+                        "id": "answer",
+                        "label": "回答",
+                        "info": "FAQの回答を入力してください",
+                        "placeholder": "回答"
+                    }
+                ]
+            }
+        ],
+        "presets": [
+            {
+                "name": "Custom Faq"
+            }
+        ]
+    }
+{% endschema %}

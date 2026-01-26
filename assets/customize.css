@@ -1,3 +1,29 @@
 .product_item{
     color: red;
 }
+
+.product__description-wrapper {
+  position: relative;
+}
+
+.product__description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* ← 最初に見せたい行数 */
+}
+
+.product__description.is-open {
+  -webkit-line-clamp: unset;
+}
+
+.product__description-more {
+  border: none;
+  padding: 4px 8px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #000;
+}
+
+
